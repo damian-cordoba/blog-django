@@ -15,7 +15,7 @@
                     <h1>{{ post.titulo }}</h1>
                     {% if post.subtitulo %}<h2 class="subheading">{{ post.subtitulo }}</h2>{% endif %}
                     <span class="meta">
-                        Publicado por <strong>{{ post.autor.username }}</strong>
+                        Publicado por <a href="{% url 'perfil_autor' post.autor.username %}">{{ post.autor.username }}</a>
                         el {{ post.creado|date:"j \d\e F \d\e Y" }}
                         {% if post.actualizado|date:"YmdHi" != post.creado|date:"YmdHi" %}
                             · editado el {{ post.actualizado|date:"j/m/Y" }}

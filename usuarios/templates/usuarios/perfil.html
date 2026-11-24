@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}{{ autor.username }} · Datos en Criollo Básico{% endblock %}
+
+{% block header %}
+    {% include "_header_chico.html" with titulo=autor.get_full_name|default:autor.username subtitulo="Perfil del autor" %}
+{% endblock %}
+
+{% block content %}
+<main class="mb-4">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <section class="tarjeta-perfil">
+                    {% if perfil.avatar %}
+                        <img class="avatar" src="{{ perfil.avatar.url }}" alt="Avatar de {{ autor.username }}">
+                    {% else %}
+                        <div class="avatar avatar-iniciales" aria-hidden="true">{{ autor.username|slice:":1"|upper }}</div>
+                    {% endif %}
+                    <div>
+                        <h2 class="h4 mb-1">@{{ autor.username }}</h2>
+                        {% if perfil.bio %}
+                            <p class="mb-1">{{ perfil.bio|linebreaksbr }}</p>
+                        {% elif es_propio %}
+                            <p class="text-muted mb-1">Todavía no escribiste tu biografía.</p>
+                        {% endif %}
+                        {% if perfil.sitio_web %}
+                            <p class="mb-1"><a href="{{ perfil.sitio_web }}" target="_blank" rel="noopener noreferrer">{{ perfil.sitio_web }}</a></p>
+                        {% endif %}
+                        <p class="small text-muted mb-0">Miembro desde {{ autor.date_joined|date:"F \d\e Y" }}</p>
+                        {% if es_propio %}
+                            <p class="small text-muted mb-0">Correo: {{ autor.email|default:"sin cargar" }}</p>
+                            <a class="btn btn-outline-primary btn-sm mt-2" href="{% url 'editar_perfil' %}">Editar perfil</a>
+                        {% endif %}
+                    </div>
+                </section>
+
+                <h2 class="h5 text-uppercase mt-5 mb-3">Publicaciones ({{ posts|length }})</h2>
+                {% for post in posts %}
+                    {% include "posts/_post_preview.html" %}
+                    {% if not forloop.last %}<hr class="my-4">{% endif %}
+                {% empty %}
+                    <p class="text-muted">
+                        {% if es_propio %}Todavía no publicaste nada. <a href="{% url 'crear_post' %}">Escribí tu primer post</a>.
+                        {% else %}Este autor todavía no publicó nada.{% endif %}
+                    </p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

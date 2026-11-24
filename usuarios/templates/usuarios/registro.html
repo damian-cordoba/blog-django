@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Crear cuenta · Datos en Criollo Básico{% endblock %}
+
+{% block header %}
+    {% include "_header_chico.html" with titulo="Crear cuenta" subtitulo="Sumate y compartí lo que sabés de datos" %}
+{% endblock %}
+
+{% block content %}
+<main class="mb-4">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    {% include "_form_campos.html" %}
+                    <button type="submit" class="btn btn-primary text-uppercase mt-2">Registrarme</button>
+                </form>
+                <p class="mt-4">¿Ya tenés cuenta? <a href="{% url 'login' %}">Iniciá sesión</a></p>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

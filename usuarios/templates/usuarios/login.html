@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Iniciar sesión · Datos en Criollo Básico{% endblock %}
+
+{% block header %}
+    {% include "_header_chico.html" with titulo="Iniciar sesión" subtitulo="Entrá para escribir y editar tus publicaciones" %}
+{% endblock %}
+
+{% block content %}
+<main class="mb-4">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                {% if next and not user.is_authenticated %}
+                    <div class="alert alert-warning">Necesitás iniciar sesión para acceder a esa página.</div>
+                {% endif %}
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    {% include "_form_campos.html" %}
+                    <input type="hidden" name="next" value="{{ next }}">
+                    <button type="submit" class="btn btn-primary text-uppercase mt-2">Entrar</button>
+                </form>
+                <p class="mt-4">¿No tenés cuenta? <a href="{% url 'registro' %}">Registrate</a></p>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

@@ -18,7 +18,7 @@
         </a>
         <p class="post-meta">
             Publicado por
-            <strong>{{ post.autor.username }}</strong>
+            <a href="{% url 'perfil_autor' post.autor.username %}">{{ post.autor.username }}</a>
             el {{ post.creado|date:"j \d\e F \d\e Y" }}
         </p>
     </div>

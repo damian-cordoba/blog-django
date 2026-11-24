@@ -6,6 +6,7 @@ from django.urls import include, path
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("posts.urls")),
+    path("", include("usuarios.urls")),
 ]
 
 # En desarrollo, Django sirve las imágenes subidas desde MEDIA_ROOT.

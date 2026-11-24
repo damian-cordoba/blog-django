@@ -10,6 +10,11 @@
         <a href="{% url 'lista_posts' %}">Datos en Criollo Básico</a>
         {% if user.is_authenticated %}
             <a href="{% url 'crear_post' %}">Nuevo post</a>
+            <a href="{% url 'mi_perfil' %}">Mi perfil</a>
+            <form method="post" action="{% url 'logout' %}">{% csrf_token %}<button>Salir</button></form>
+        {% else %}
+            <a href="{% url 'login' %}">Ingresar</a>
+            <a href="{% url 'registro' %}">Registrarse</a>
         {% endif %}
     </nav>
     {% for message in messages %}
