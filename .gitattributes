@@ -1,0 +1,5 @@
+# Normaliza los finales de línea entre Windows, Linux y macOS.
+* text=auto
+*.jpg binary
+*.png binary
+*.ico binary
