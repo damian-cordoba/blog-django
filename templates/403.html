@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Sin permiso · Datos en Criollo Básico{% endblock %}
+
+{% block header %}
+    {% include "_header_chico.html" with titulo="Sin permiso" subtitulo="Error 403" %}
+{% endblock %}
+
+{% block content %}
+<main class="mb-4">
+    <div class="container px-4 px-lg-5 text-center">
+        <p class="lead">No tenés permiso para hacer esta acción.</p>
+        <p>Solo el autor de una publicación puede editarla o eliminarla.</p>
+        <a class="btn btn-primary text-uppercase" href="{% url 'lista_posts' %}">Volver al inicio</a>
+    </div>
+</main>
+{% endblock %}

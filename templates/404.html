@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Página no encontrada · Datos en Criollo Básico{% endblock %}
+
+{% block header %}
+    {% include "_header_chico.html" with titulo="Página no encontrada" subtitulo="Error 404" %}
+{% endblock %}
+
+{% block content %}
+<main class="mb-4">
+    <div class="container px-4 px-lg-5 text-center">
+        <p class="lead">La página que buscás no existe o fue eliminada.</p>
+        <a class="btn btn-primary text-uppercase" href="{% url 'lista_posts' %}">Volver al inicio</a>
+    </div>
+</main>
+{% endblock %}

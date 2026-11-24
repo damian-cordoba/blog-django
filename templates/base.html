@@ -1,26 +1,97 @@
-<!DOCTYPE html>
+{% load static %}<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Datos en Criollo Básico: análisis de datos explicado en simple para PyMEs y emprendedores.">
+    <meta name="author" content="Damián Emiliano Cordoba">
     <title>{% block title %}Datos en Criollo Básico{% endblock %}</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}">
+    <!-- Tipografías de la plantilla Clean Blog (si no hay internet se usan las del sistema) -->
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+    <!-- Plantilla Clean Blog de Start Bootstrap (incluye Bootstrap 5) + estilos propios -->
+    <link href="{% static 'css/clean-blog.css' %}" rel="stylesheet">
+    <link href="{% static 'css/custom.css' %}" rel="stylesheet">
 </head>
 <body>
-    <nav>
-        <a href="{% url 'lista_posts' %}">Datos en Criollo Básico</a>
-        {% if user.is_authenticated %}
-            <a href="{% url 'crear_post' %}">Nuevo post</a>
-            <a href="{% url 'mi_perfil' %}">Mi perfil</a>
-            <form method="post" action="{% url 'logout' %}">{% csrf_token %}<button>Salir</button></form>
-        {% else %}
-            <a href="{% url 'login' %}">Ingresar</a>
-            <a href="{% url 'registro' %}">Registrarse</a>
-        {% endif %}
+    <!-- Navegación -->
+    <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
+        <div class="container px-4 px-lg-5">
+            <a class="navbar-brand" href="{% url 'lista_posts' %}">Datos en Criollo <span class="marca-basico">Básico</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+                    aria-controls="navbarResponsive" aria-expanded="false" aria-label="Abrir menú">
+                Menú &#9776;
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto py-4 py-lg-0">
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'lista_posts' %}">Inicio</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle px-lg-3 py-3 py-lg-4" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categorías</a>
+                        <ul class="dropdown-menu">
+                            {% for cat in categorias_menu %}
+                                <li><a class="dropdown-item" href="{{ cat.get_absolute_url }}">{{ cat.nombre }}</a></li>
+                            {% empty %}
+                                <li><span class="dropdown-item-text">Sin categorías</span></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'acerca' %}">Acerca de</a></li>
+
+                    {% if user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'crear_post' %}">+ Nuevo post</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'mi_perfil' %}">{{ user.username }}</a></li>
+                        <li class="nav-item">
+                            {# LogoutView requiere POST: por eso el botón está dentro de un formulario #}
+                            <form method="post" action="{% url 'logout' %}" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="nav-link boton-nav px-lg-3 py-3 py-lg-4">Salir</button>
+                            </form>
+                        </li>
+                    {% else %}
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'login' %}">Ingresar</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'registro' %}">Registrarse</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
     </nav>
-    {% for message in messages %}
-        <p>{{ message }}</p>
-    {% endfor %}
+
     {% block header %}{% endblock %}
+
+    {% if messages %}
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    {% for message in messages %}
+                        <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags|default:'info' }}{% endif %} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
     {% block content %}{% endblock %}
+
+    <!-- Pie de página -->
+    <footer class="border-top">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <p class="text-center mb-1"><strong>Datos en Criollo Básico</strong> · datos explicados en simple</p>
+                    <div class="small text-center text-muted fst-italic">
+                        Proyecto final de Python · Damián Emiliano Cordoba · {% now "Y" %}<br>
+                        Diseño basado en Clean Blog de Start Bootstrap (licencia MIT)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/clean-blog.js' %}"></script>
 </body>
 </html>
