@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Datos en Criollo Básico{% endblock %}</title>
+</head>
+<body>
+    <nav>
+        <a href="{% url 'lista_posts' %}">Datos en Criollo Básico</a>
+        {% if user.is_authenticated %}
+            <a href="{% url 'crear_post' %}">Nuevo post</a>
+        {% endif %}
+    </nav>
+    {% for message in messages %}
+        <p>{{ message }}</p>
+    {% endfor %}
+    {% block header %}{% endblock %}
+    {% block content %}{% endblock %}
+</body>
+</html>

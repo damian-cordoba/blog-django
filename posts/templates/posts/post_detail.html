@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ post.titulo }} · Datos en Criollo Básico{% endblock %}
+
+{% block header %}
+<header class="masthead masthead-post" style="background-image: url('{% if post.imagen %}{{ post.imagen.url }}{% else %}{% static 'img/post-bg.jpg' %}{% endif %}')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="post-heading">
+                    {% if post.categoria %}
+                        <a class="etiqueta-categoria etiqueta-clara" href="{{ post.categoria.get_absolute_url }}">{{ post.categoria.nombre }}</a>
+                    {% endif %}
+                    <h1>{{ post.titulo }}</h1>
+                    {% if post.subtitulo %}<h2 class="subheading">{{ post.subtitulo }}</h2>{% endif %}
+                    <span class="meta">
+                        Publicado por <strong>{{ post.autor.username }}</strong>
+                        el {{ post.creado|date:"j \d\e F \d\e Y" }}
+                        {% if post.actualizado|date:"YmdHi" != post.creado|date:"YmdHi" %}
+                            · editado el {{ post.actualizado|date:"j/m/Y" }}
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+{% endblock %}
+
+{% block content %}
+<article class="mb-4">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                {% if post.imagen %}
+                    <figure class="imagen-post">
+                        <img class="img-fluid rounded" src="{{ post.imagen.url }}" alt="Imagen de «{{ post.titulo }}»">
+                    </figure>
+                {% endif %}
+
+                <div class="contenido-post">
+                    {{ post.contenido|linebreaks }}
+                </div>
+
+                {# Los botones solo se muestran al autor; la protección real está en las views. #}
+                {% if user.is_authenticated and user == post.autor or user.is_staff %}
+                    <div class="acciones-post">
+                        <a class="btn btn-outline-primary btn-sm" href="{% url 'editar_post' post.slug %}">Editar</a>
+                        <a class="btn btn-outline-danger btn-sm" href="{% url 'eliminar_post' post.slug %}">Eliminar</a>
+                    </div>
+                {% endif %}
+
+                <p class="mt-4"><a href="{% url 'lista_posts' %}">&larr; Volver a las publicaciones</a></p>
+            </div>
+        </div>
+    </div>
+</article>
+{% endblock %}

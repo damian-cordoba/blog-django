@@ -1,0 +1,15 @@
+{# Renderiza los campos de cualquier formulario con estilo Bootstrap y sus errores. #}
+{% if form.non_field_errors %}
+    <div class="alert alert-danger">
+        {% for error in form.non_field_errors %}<div>{{ error }}</div>{% endfor %}
+    </div>
+{% endif %}
+
+{% for campo in form %}
+    <div class="mb-3">
+        <label class="form-label" for="{{ campo.id_for_label }}">{{ campo.label }}{% if campo.field.required %} *{% endif %}</label>
+        {{ campo }}
+        {% if campo.help_text %}<div class="form-text">{{ campo.help_text|safe }}</div>{% endif %}
+        {% for error in campo.errors %}<div class="invalid-feedback d-block">{{ error }}</div>{% endfor %}
+    </div>
+{% endfor %}

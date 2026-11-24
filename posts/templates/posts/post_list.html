@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{% if categoria_actual %}{{ categoria_actual.nombre }} · {% elif termino %}Buscar: {{ termino }} · {% endif %}Datos en Criollo Básico{% endblock %}
+
+{% block header %}
+<header class="masthead" style="background-image: url('{% static 'img/home-bg.jpg' %}')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="site-heading">
+                    {% if categoria_actual %}
+                        <h1>{{ categoria_actual.nombre }}</h1>
+                        <span class="subheading">{{ categoria_actual.descripcion|default:"Publicaciones de esta categoría" }}</span>
+                    {% else %}
+                        <h1>Datos en Criollo Básico</h1>
+                        <span class="subheading">Datos y análisis explicados en simple, para PyMEs y emprendedores</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+{% endblock %}
+
+{% block content %}
+<div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+
+            <form class="buscador mb-4" method="get" action="{% if categoria_actual %}{{ categoria_actual.get_absolute_url }}{% else %}{% url 'lista_posts' %}{% endif %}" role="search">
+                <div class="input-group">
+                    <input type="search" name="q" value="{{ termino }}" class="form-control"
+                           placeholder="Buscar por título o contenido{% if categoria_actual %} en {{ categoria_actual.nombre }}{% endif %}"
+                           aria-label="Buscar publicaciones">
+                    <button class="btn btn-primary" type="submit">Buscar</button>
+                </div>
+            </form>
+
+            <div class="filtro-categorias mb-4">
+                <a href="{% url 'lista_posts' %}" class="chip {% if not categoria_actual %}activa{% endif %}">Todas</a>
+                {% for cat in categorias_menu %}
+                    <a href="{{ cat.get_absolute_url }}" class="chip {% if categoria_actual == cat %}activa{% endif %}">{{ cat.nombre }} <small>({{ cat.total_posts }})</small></a>
+                {% endfor %}
+            </div>
+
+            {% if busqueda_vacia %}
+                <div class="alert alert-info">Escribí una palabra para buscar. Mientras tanto, te mostramos todas las publicaciones.</div>
+            {% elif termino %}
+                <p class="resultado-busqueda">
+                    {% with total=paginator.count %}
+                        {{ total }} resultado{{ total|pluralize }} para «<strong>{{ termino }}</strong>»{% if categoria_actual %} en {{ categoria_actual.nombre }}{% endif %}.
+                    {% endwith %}
+                    <a href="{% if categoria_actual %}{{ categoria_actual.get_absolute_url }}{% else %}{% url 'lista_posts' %}{% endif %}">Limpiar búsqueda</a>
+                </p>
+            {% endif %}
+
+            {% for post in posts %}
+                {% include "posts/_post_preview.html" %}
+                {% if not forloop.last %}<hr class="my-4">{% endif %}
+            {% empty %}
+                <div class="sin-resultados">
+                    {% if termino %}
+                        <h2 class="h4">No encontramos coincidencias para «{{ termino }}».</h2>
+                        <p>Probá con otra palabra, revisá la ortografía o mirá todas las publicaciones.</p>
+                    {% elif categoria_actual %}
+                        <h2 class="h4">Todavía no hay publicaciones en {{ categoria_actual.nombre }}.</h2>
+                    {% else %}
+                        <h2 class="h4">Todavía no hay publicaciones.</h2>
+                    {% endif %}
+                    {% if user.is_authenticated %}
+                        <a class="btn btn-primary mt-2" href="{% url 'crear_post' %}">Escribir la primera</a>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+            {% if is_paginated %}
+                <hr class="my-4">
+                <nav class="d-flex justify-content-between mb-4" aria-label="Paginación">
+                    {% if page_obj.has_previous %}
+                        <a class="btn btn-primary text-uppercase" href="?page={{ page_obj.previous_page_number }}{% if termino %}&q={{ termino|urlencode }}{% endif %}">&larr; Más nuevos</a>
+                    {% else %}<span></span>{% endif %}
+                    <span class="align-self-center small text-muted">Página {{ page_obj.number }} de {{ paginator.num_pages }}</span>
+                    {% if page_obj.has_next %}
+                        <a class="btn btn-primary text-uppercase" href="?page={{ page_obj.next_page_number }}{% if termino %}&q={{ termino|urlencode }}{% endif %}">Más antiguos &rarr;</a>
+                    {% else %}<span></span>{% endif %}
+                </nav>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

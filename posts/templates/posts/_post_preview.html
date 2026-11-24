@@ -1,0 +1,25 @@
+<article class="post-preview{% if post.imagen %} con-imagen{% endif %}">
+    {% if post.imagen %}
+        <a href="{{ post.get_absolute_url }}" class="post-miniatura">
+            <img src="{{ post.imagen.url }}" alt="Imagen de «{{ post.titulo }}»" loading="lazy">
+        </a>
+    {% endif %}
+    <div>
+        {% if post.categoria %}
+            <a class="etiqueta-categoria" href="{{ post.categoria.get_absolute_url }}">{{ post.categoria.nombre }}</a>
+        {% endif %}
+        <a href="{{ post.get_absolute_url }}">
+            <h2 class="post-title">{{ post.titulo }}</h2>
+            {% if post.subtitulo %}
+                <h3 class="post-subtitle">{{ post.subtitulo }}</h3>
+            {% else %}
+                <h3 class="post-subtitle">{{ post.contenido|truncatewords:25 }}</h3>
+            {% endif %}
+        </a>
+        <p class="post-meta">
+            Publicado por
+            <strong>{{ post.autor.username }}</strong>
+            el {{ post.creado|date:"j \d\e F \d\e Y" }}
+        </p>
+    </div>
+</article>
