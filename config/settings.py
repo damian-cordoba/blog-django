@@ -1,5 +1,5 @@
 """
-Configuración del proyecto "Datos en Criollo Básico".
+Configuración del proyecto "Datos en Criollo".
 
 Los valores sensibles o que cambian según el entorno (SECRET_KEY, DEBUG,
 ALLOWED_HOSTS) se leen desde un archivo .env mediante python-decouple.

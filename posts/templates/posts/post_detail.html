@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}{{ post.titulo }} · Datos en Criollo Básico{% endblock %}
+{% block title %}{{ post.titulo }} · Datos en Criollo{% endblock %}
 
 {% block header %}
 <header class="masthead masthead-post" style="background-image: url('{% if post.imagen %}{{ post.imagen.url }}{% else %}{% static 'img/post-bg.jpg' %}{% endif %}')">

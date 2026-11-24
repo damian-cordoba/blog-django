@@ -4,7 +4,7 @@ Carga publicaciones de ejemplo para probar el blog desde una base vacía.
 Uso:
     python manage.py cargar_datos_demo
 
-Crea un autor de ejemplo ("equipo_dcb", sin contraseña utilizable) y seis
+Crea un autor de ejemplo ("equipo_datos", sin contraseña utilizable) y seis
 publicaciones. Cuatro tienen una imagen de portada generada con Pillow y dos
 no tienen imagen, para mostrar que los templates funcionan en ambos casos.
 El comando se puede ejecutar varias veces: no duplica contenido.
@@ -23,7 +23,7 @@ from PIL import Image, ImageDraw
 from posts.models import Categoria, Post
 from usuarios.models import Profile
 
-AUTOR_DEMO = "equipo_dcb"
+AUTOR_DEMO = "equipo_datos"
 
 POSTS = [
     {

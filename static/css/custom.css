@@ -1,14 +1,14 @@
-/* Estilos propios de "Datos en Criollo Básico", sobre la plantilla Clean Blog. */
+/* Estilos propios de "Datos en Criollo", sobre la plantilla Clean Blog. */
 
 :root {
-    --dcb-acento: #f0b429;      /* amarillo "dato destacado" */
-    --dcb-primario: #0085a1;    /* color primario de Clean Blog */
-    --dcb-oscuro: #0a2540;
+    --dc-acento: #f0b429;      /* amarillo "dato destacado" */
+    --dc-primario: #0085a1;    /* color primario de Clean Blog */
+    --dc-oscuro: #0a2540;
 }
 
 /* --- Marca y navegación --- */
-.marca-basico {
-    color: var(--dcb-acento);
+.marca-acento {
+    color: var(--dc-acento);
 }
 
 #mainNav .boton-nav {
@@ -25,7 +25,7 @@
     #mainNav .boton-nav { color: #fff; }
     #mainNav .boton-nav:hover { color: rgba(255, 255, 255, 0.8); }
     #mainNav.is-fixed .boton-nav { color: #212529; }
-    #mainNav.is-fixed .boton-nav:hover { color: var(--dcb-primario); }
+    #mainNav.is-fixed .boton-nav:hover { color: var(--dc-primario); }
 }
 
 .dropdown-menu {
@@ -80,8 +80,8 @@ header.masthead.masthead-chico {
 
 .chip:hover,
 .chip.activa {
-    background: var(--dcb-primario);
-    border-color: var(--dcb-primario);
+    background: var(--dc-primario);
+    border-color: var(--dc-primario);
     color: #fff;
 }
 
@@ -122,7 +122,7 @@ header.masthead.masthead-chico {
     padding: 0.15rem 0.6rem;
     border-radius: 0.25rem;
     background: rgba(0, 133, 161, 0.1);
-    color: var(--dcb-primario);
+    color: var(--dc-primario);
     font-family: "Open Sans", sans-serif;
     font-size: 0.7rem;
     font-weight: 700;
@@ -134,8 +134,8 @@ header.masthead.masthead-chico {
 .etiqueta-clara {
     margin-top: 0;
     margin-bottom: 1rem;
-    background: var(--dcb-acento);
-    color: var(--dcb-oscuro);
+    background: var(--dc-acento);
+    color: var(--dc-oscuro);
 }
 
 /* --- Detalle de post --- */
@@ -193,8 +193,8 @@ form .form-label {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--dcb-oscuro);
-    color: var(--dcb-acento);
+    background: var(--dc-oscuro);
+    color: var(--dc-acento);
     font-family: "Open Sans", sans-serif;
     font-size: 2.5rem;
     font-weight: 800;

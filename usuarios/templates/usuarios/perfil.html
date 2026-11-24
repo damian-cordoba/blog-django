@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}{{ autor.username }} · Datos en Criollo Básico{% endblock %}
+{% block title %}{{ autor.username }} · Datos en Criollo{% endblock %}
 
 {% block header %}
     {% include "_header_chico.html" with titulo=autor.get_full_name|default:autor.username subtitulo="Perfil del autor" %}

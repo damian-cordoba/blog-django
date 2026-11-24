@@ -1,4 +1,4 @@
-# Estado del proyecto — Datos en Criollo Básico
+# Estado del proyecto — Datos en Criollo
 
 Última actualización: 24/11/2026
 
@@ -15,7 +15,7 @@ Fase 5: Git y GitHub. Falta el push, que tiene que hacer el autor desde su PC.
 ## Decisiones tomadas
 
 - El proyecto se construyó desde cero: no existía un blog previo.
-- Temática: divulgación de análisis de datos para PyMEs. Nombre: «Datos en Criollo Básico».
+- Temática: divulgación de análisis de datos para PyMEs. Nombre: «Datos en Criollo» (al principio se llamaba «Datos en Criollo Básico»; se le sacó «Básico» antes de la entrega).
 - Se incluyen búsqueda y categorías, ambas pedidas por el autor.
 - Las vistas de posts son Class-Based Views con `LoginRequiredMixin`. Las de usuarios son funciones con `@login_required`, como en la teoría del curso.
 - Solo el autor (o un usuario staff) puede editar o eliminar un post. Otro usuario recibe un 403.

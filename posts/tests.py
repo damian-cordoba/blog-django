@@ -203,7 +203,7 @@ class DatosDemoTest(BasePostTest):
     def test_comando_carga_y_no_duplica(self):
         call_command("cargar_datos_demo", stdout=io.StringIO())
         call_command("cargar_datos_demo", stdout=io.StringIO())
-        demo = Post.objects.filter(autor__username="equipo_dcb")
+        demo = Post.objects.filter(autor__username="equipo_datos")
         self.assertEqual(demo.count(), 6)
         self.assertEqual(demo.exclude(imagen="").exclude(imagen=None).count(), 4)
         self.assertEqual(self.client.get(reverse("lista_posts")).status_code, 200)

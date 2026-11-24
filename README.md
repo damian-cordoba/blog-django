@@ -1,8 +1,8 @@
-# Datos en Criollo Básico
+# Datos en Criollo
 
 Blog web desarrollado con **Django** como trabajo final de la materia Python de la Diplomatura en Ciencia de Datos.
 
-**Datos en Criollo Básico** es un blog de divulgación sobre análisis de datos pensado para dueños de PyMEs, emprendedores y profesionales no técnicos. Explica en lenguaje simple temas como KPIs, Excel, Power BI, SQL, Python y estadística básica. Cualquier persona registrada puede publicar artículos, y cada autor tiene un perfil público con sus publicaciones.
+**Datos en Criollo** es un blog de divulgación sobre análisis de datos pensado para dueños de PyMEs, emprendedores y profesionales no técnicos. Explica en lenguaje simple temas como KPIs, Excel, Power BI, SQL, Python y estadística básica. Cualquier persona registrada puede publicar artículos, y cada autor tiene un perfil público con sus publicaciones.
 
 ---
 
@@ -211,7 +211,7 @@ Son 33 pruebas que cubren el CRUD de publicaciones, la subida y el borrado de im
 
 - El proyecto está configurado para **desarrollo local**. Para publicarlo en un servidor habría que usar `DEBUG=False`, configurar `ALLOWED_HOSTS`, ejecutar `collectstatic` (destino: `staticfiles/`) y servir `media/` desde el servidor web.
 - Las tipografías de la plantilla se cargan desde Google Fonts. Sin conexión a internet el sitio funciona igual, con las fuentes del sistema.
-- La cuenta de ejemplo `equipo_dcb` que crea `cargar_datos_demo` no tiene una contraseña utilizable. Para publicar, registrate con tu propio usuario.
+- La cuenta de ejemplo `equipo_datos` que crea `cargar_datos_demo` no tiene una contraseña utilizable. Para publicar, registrate con tu propio usuario.
 - El contenido de las publicaciones es texto plano: los saltos de línea se respetan, pero no se interpreta HTML ni Markdown.
 
 ## Autor
