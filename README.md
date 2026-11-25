@@ -99,7 +99,7 @@ blog-django/
 ### 1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/<usuario>/blog-django.git
+git clone https://github.com/damian-cordoba/blog-django.git
 cd blog-django
 ```
 
