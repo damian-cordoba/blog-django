@@ -4,6 +4,20 @@ Blog web desarrollado con **Django** como trabajo final de la materia Python de 
 
 **Datos en Criollo** es un blog de divulgación sobre análisis de datos pensado para dueños de PyMEs, emprendedores y profesionales no técnicos. Explica en lenguaje simple temas como KPIs, Excel, Power BI, SQL, Python y estadística básica. Cualquier persona registrada puede publicar artículos, y cada autor tiene un perfil público con sus publicaciones.
 
+## Capturas
+
+**Portada**
+
+![Portada del blog](docs/capturas/01-portada.png)
+
+**Listado con buscador y categorías**
+
+![Listado con buscador y categorías](docs/capturas/02-listado-con-buscador-y-categorias.png)
+
+**Formulario de nueva publicación**
+
+![Formulario de nueva publicación](docs/capturas/13-formulario-nueva-publicacion.png)
+
 ---
 
 ## Tecnologías
@@ -64,6 +78,7 @@ blog-django/
 ├── templates/            # base.html, acerca, errores 403/404 y parciales
 ├── static/               # CSS, JS e imágenes de la plantilla
 ├── media/                # (se crea solo) imágenes subidas por usuarios
+├── docs/capturas/        # capturas usadas en este README
 ├── .env.example          # variables de entorno de ejemplo
 ├── requirements.txt
 └── manage.py
