@@ -3,3 +3,9 @@
 *.jpg binary
 *.png binary
 *.ico binary
+
+# Archivos de la plantilla Clean Blog y de Bootstrap: no cuentan para las
+# estadísticas de lenguajes de GitHub (no son código propio).
+static/css/clean-blog.css linguist-vendored
+static/js/clean-blog.js linguist-vendored
+static/js/bootstrap.bundle.min.js linguist-vendored
