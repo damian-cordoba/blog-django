@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Casos de estudio · Datos en Criollo{% endblock %}
+
+{% block header %}
+    {% include "_header_chico.html" with titulo="Casos de estudio" subtitulo="El problema, lo que construí y el resultado" fondo="img/post-bg.jpg" %}
+{% endblock %}
+
+{% block content %}
+<main class="mb-5">
+    <div class="container px-4 px-lg-5">
+        <div class="filtros">
+            <div class="filtro-categorias">
+                <a href="{% url 'lista_proyectos' %}" class="chip {% if not tipo_actual and not herramienta_actual %}activa{% endif %}">Todos</a>
+                {% for valor, nombre in tipos %}
+                    <a href="?tipo={{ valor }}" class="chip {% if tipo_actual == valor %}activa{% endif %}">{{ nombre }}</a>
+                {% endfor %}
+            </div>
+            <div class="filtro-categorias mt-2">
+                {% for h in herramientas %}
+                    <a href="?herramienta={{ h.slug }}" class="chip chip-chico {% if herramienta_actual == h %}activa{% endif %}">{{ h.nombre }}</a>
+                {% endfor %}
+            </div>
+        </div>
+
+        {% if herramienta_actual or tipo_actual %}
+            <p class="resultado-busqueda">
+                {{ proyectos|length }} caso{{ proyectos|length|pluralize }}
+                {% if herramienta_actual %}con <strong>{{ herramienta_actual.nombre }}</strong>{% endif %}.
+                <a href="{% url 'lista_proyectos' %}">Ver todos</a>
+            </p>
+        {% endif %}
+
+        <div class="grilla grilla-3">
+            {% for proyecto in proyectos %}
+                {% include "_tarjeta_proyecto.html" %}
+            {% empty %}
+                <p class="text-muted">No hay casos con ese filtro.</p>
+            {% endfor %}
+        </div>
+    </div>
+</main>
+{% include "sitio/_llamado_contacto.html" %}
+{% endblock %}

@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% load static formato %}
+
+{% block title %}{{ proyecto.titulo }} · Casos de estudio{% endblock %}
+{% block descripcion %}{{ proyecto.resumen }}{% endblock %}
+{% block og_titulo %}{{ proyecto.titulo }}{% endblock %}
+{% block og_descripcion %}{{ proyecto.resumen }}{% endblock %}
+
+{% block header %}
+<header class="masthead masthead-chico" style="background-image: url('{% if proyecto.portada %}{{ proyecto.portada.url }}{% else %}{% static 'img/post-bg.jpg' %}{% endif %}')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-9">
+                <div class="page-heading text-start">
+                    <span class="etiqueta-categoria etiqueta-clara">{{ proyecto.get_tipo_display }}</span>
+                    <h1>{{ proyecto.titulo }}</h1>
+                    <span class="subheading">{{ proyecto.resumen }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+{% endblock %}
+
+{% block content %}
+<main class="mb-5">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-5 justify-content-center">
+            <div class="col-lg-8">
+                {% if proyecto.nota %}<div class="alert alert-secondary small">{{ proyecto.nota }}</div>{% endif %}
+
+                <section class="bloque-caso">
+                    <h2>El problema</h2>
+                    {{ proyecto.problema|texto_enriquecido }}
+                </section>
+
+                <section class="bloque-caso">
+                    <h2>La solución</h2>
+                    {{ proyecto.solucion|texto_enriquecido }}
+                </section>
+
+                {% if proyecto.embed_url %}
+                    <section class="bloque-caso">
+                        <h2>Tablero interactivo</h2>
+                        <div class="embed-tablero">
+                            <iframe src="{{ proyecto.embed_url }}" title="Tablero de {{ proyecto.titulo }}" loading="lazy" allowfullscreen
+                                    sandbox="allow-scripts allow-same-origin allow-popups allow-forms" referrerpolicy="no-referrer"></iframe>
+                        </div>
+                    </section>
+                {% endif %}
+
+                {% if proyecto.imagenes.all %}
+                    <section class="bloque-caso">
+                        <h2>Capturas</h2>
+                        <div class="galeria">
+                            {% for img in proyecto.imagenes.all %}
+                                <figure>
+                                    <a href="{{ img.imagen.url }}" target="_blank" rel="noopener"><img src="{{ img.imagen.url }}" alt="{{ img.titulo|default:proyecto.titulo }}" loading="lazy"></a>
+                                    {% if img.titulo %}<figcaption>{{ img.titulo }}</figcaption>{% endif %}
+                                </figure>
+                            {% endfor %}
+                        </div>
+                    </section>
+                {% endif %}
+
+                {% if proyecto.resultados %}
+                    <section class="bloque-caso bloque-resultados">
+                        <h2>Resultados</h2>
+                        {{ proyecto.resultados|texto_enriquecido }}
+                    </section>
+                {% endif %}
+
+                {% if proyecto.detalle_tecnico %}
+                    <section class="bloque-caso">
+                        <h2>Detalle técnico</h2>
+                        {{ proyecto.detalle_tecnico|texto_enriquecido }}
+                    </section>
+                {% endif %}
+            </div>
+
+            <aside class="col-lg-3">
+                <div class="ficha-perfil text-start ficha-pegajosa">
+                    <dl class="ficha-datos">
+                        <dt>Tipo</dt><dd>{{ proyecto.get_tipo_display }}</dd>
+                        {% if proyecto.sector %}<dt>Sector</dt><dd>{{ proyecto.sector }}</dd>{% endif %}
+                        {% if proyecto.periodo %}<dt>Período</dt><dd>{{ proyecto.periodo }}</dd>{% endif %}
+                        <dt>Herramientas</dt>
+                        <dd class="chips-chicos">{% for h in proyecto.herramientas.all %}<a href="{% url 'lista_proyectos' %}?herramienta={{ h.slug }}">{{ h.nombre }}</a>{% endfor %}</dd>
+                    </dl>
+                    <div class="d-grid gap-2">
+                        {% if proyecto.repositorio %}<a class="btn btn-outline-primary btn-sm" href="{{ proyecto.repositorio }}" target="_blank" rel="noopener">Ver repositorio</a>{% endif %}
+                        {% if proyecto.enlace_externo %}<a class="btn btn-outline-secondary btn-sm" href="{{ proyecto.enlace_externo }}" target="_blank" rel="noopener">Más información</a>{% endif %}
+                        <a class="btn btn-primary btn-sm" href="{{ contacto_url }}">Quiero algo así</a>
+                    </div>
+                </div>
+            </aside>
+        </div>
+
+        {% if otros %}
+            <h2 class="h5 text-uppercase mt-5 mb-3">Otros casos</h2>
+            <div class="grilla grilla-3">
+                {% for proyecto in otros %}{% include "_tarjeta_proyecto.html" %}{% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</main>
+{% endblock %}

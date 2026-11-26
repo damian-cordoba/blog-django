@@ -1,0 +1,18 @@
+{# Tarjeta de un caso de estudio. Requiere la variable "proyecto". #}
+<article class="tarjeta tarjeta-proyecto">
+    <a href="{{ proyecto.get_absolute_url }}" class="tarjeta-imagen{% if not proyecto.portada %} sin-imagen tipo-{{ proyecto.tipo }}{% endif %}">
+        {% if proyecto.portada %}
+            <img src="{{ proyecto.portada.url }}" alt="Portada de {{ proyecto.titulo }}" loading="lazy">
+        {% else %}
+            <span>{{ proyecto.sector|default:proyecto.get_tipo_display }}</span>
+        {% endif %}
+    </a>
+    <div class="tarjeta-cuerpo">
+        <p class="tarjeta-etiqueta">{{ proyecto.get_tipo_display }}{% if proyecto.sector %} · {{ proyecto.sector }}{% endif %}</p>
+        <h3 class="tarjeta-titulo"><a href="{{ proyecto.get_absolute_url }}">{{ proyecto.titulo }}</a></h3>
+        <p class="tarjeta-texto">{{ proyecto.resumen }}</p>
+        <div class="chips-chicos">
+            {% for h in proyecto.herramientas.all|slice:":4" %}<span>{{ h.nombre }}</span>{% endfor %}
+        </div>
+    </div>
+</article>
