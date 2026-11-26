@@ -428,3 +428,13 @@ header.masthead:before { opacity:.18 !important; }
 .pasos li::before { background:#3f4a5c !important; }
 .foto-iniciales { background:#3f4a5c !important; color:#d6c29b !important; }
 .pie { background:#eceef1 !important; }
+
+/* Cabecera de los casos: velo pizarra degradado para que el título se lea sobre cualquier portada */
+header.masthead.cabecera-caso:before {
+    background: linear-gradient(90deg, rgba(30, 35, 44, .94) 0%, rgba(30, 35, 44, .85) 55%, rgba(30, 35, 44, .55) 100%) !important;
+    opacity: 1 !important;
+}
+header.masthead.cabecera-caso .page-heading { text-shadow: 0 2px 12px rgba(0, 0, 0, .35); }
+@media (max-width: 767.98px) {
+    header.masthead.cabecera-caso:before { background: rgba(30, 35, 44, .9) !important; }
+}
