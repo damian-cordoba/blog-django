@@ -56,8 +56,20 @@ class PaginasTest(TestCase):
         self.assertNotContains(self.client.get(reverse("inicio")), "wa.me")
         perfil = PerfilProfesional.cargar()
         perfil.whatsapp = "+54 9 387 123-4567"
+        perfil.whatsapp_mensaje = ""
         perfil.save()
-        self.assertContains(self.client.get(reverse("inicio")), "https://wa.me/5493871234567")
+        self.assertContains(self.client.get(reverse("inicio")), 'href="https://wa.me/5493871234567"')
+
+    def test_whatsapp_con_mensaje_precargado(self):
+        perfil = PerfilProfesional.cargar()
+        perfil.whatsapp = "5493871234567"
+        perfil.whatsapp_mensaje = "Hola Damián, ¿cómo estás?"
+        perfil.save()
+        self.assertEqual(
+            perfil.whatsapp_url,
+            "https://wa.me/5493871234567?text=Hola%20Dami%C3%A1n%2C%20%C2%BFc%C3%B3mo%20est%C3%A1s%3F",
+        )
+        self.assertContains(self.client.get(reverse("inicio")), "wa.me/5493871234567?text=Hola")
 
     def test_blog_sigue_funcionando_en_su_nueva_ruta(self):
         self.assertEqual(reverse("lista_posts"), "/blog/")

@@ -52,7 +52,7 @@ Etapa 2 implementada y probada localmente:
 |---|---|
 | `python manage.py check` | Sin problemas |
 | `python manage.py makemigrations --check --dry-run` | Sin cambios pendientes |
-| `python manage.py test` | 81 pruebas OK |
+| `python manage.py test` | 82 pruebas OK |
 | Todas las páginas nuevas | Responden 200 |
 | Revisión visual en Chrome: portada, servicios, sobre mí, caso de estudio, calculadoras y diagnóstico | OK |
 | Vista móvil (390 px) sin desbordes horizontales | OK, después de corregir el correo del pie |

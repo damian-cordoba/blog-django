@@ -49,7 +49,7 @@ Nació como blog y trabajo final de la materia Python de la Diplomatura en Cienc
 - Portada con propuesta de valor, servicios destacados, casos de estudio, herramientas y últimos artículos.
 - Páginas **Sobre mí**, **Servicios** y **Contacto**. Todo el contenido (biografía, foto, redes, WhatsApp, servicios) se edita desde el panel de administración, sin tocar código.
 - Formulario de contacto con validación, campo trampa contra bots y aviso por correo opcional. Cada consulta guarda desde dónde llegó (por ejemplo, desde el diagnóstico o un caso de estudio) y tiene un estado (nueva, en curso, respondida, archivada).
-- Botón flotante de WhatsApp, que solo aparece si se carga un número en el perfil.
+- Botón flotante de WhatsApp, que solo aparece si se carga un número en el perfil. Abre el chat con un mensaje inicial editable desde el admin.
 
 **Casos de estudio**
 - Listado con filtros por tipo de proyecto (cliente real, formación, personal) y por herramienta.
@@ -260,7 +260,7 @@ Desde el panel se administra todo el contenido profesional:
 
 | Sección del admin | Para qué sirve |
 |---|---|
-| **Sitio profesional → Perfil profesional** | Biografía, foto, habilidades, formación, correo, LinkedIn, GitHub y número de WhatsApp. |
+| **Sitio profesional → Perfil profesional** | Biografía, foto, habilidades, formación, correo, LinkedIn, GitHub, número de WhatsApp y mensaje inicial del chat. |
 | **Sitio profesional → Servicios** | Alta, orden y servicios destacados en la portada. |
 | **Sitio profesional → Consultas** | Mensajes del formulario de contacto, con estado y notas internas. |
 | **Casos de estudio** | Proyectos, portada, galería de capturas y tablero embebido. |
@@ -274,7 +274,7 @@ Para embeber un tablero de Power BI, en Power BI Service usá **Archivo → Inse
 python manage.py test
 ```
 
-Son 81 pruebas:
+Son 82 pruebas:
 - **Blog y usuarios:** CRUD de publicaciones, subida y borrado de imágenes, búsqueda, categorías, rutas protegidas, registro, login, logout y perfil.
 - **Sitio profesional:** formulario de contacto, envío de avisos por correo, campo trampa contra bots y formato de números.
 - **Casos de estudio:** filtros, publicación y validación de tableros embebidos.

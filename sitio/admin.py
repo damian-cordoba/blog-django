@@ -8,7 +8,7 @@ class PerfilProfesionalAdmin(admin.ModelAdmin):
     fieldsets = [
         ("Presentación", {"fields": ["nombre", "titular", "bio_corta", "bio", "foto"]}),
         ("Datos", {"fields": ["ubicacion", "idiomas", "disponibilidad", "habilidades", "formacion"]}),
-        ("Contacto y redes", {"fields": ["email", "whatsapp", "linkedin", "github", "portafolio_notion"]}),
+        ("Contacto y redes", {"fields": ["email", "whatsapp", "whatsapp_mensaje", "linkedin", "github", "portafolio_notion"]}),
     ]
 
     def has_add_permission(self, request):

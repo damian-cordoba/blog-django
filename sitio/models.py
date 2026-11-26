@@ -1,3 +1,5 @@
+from urllib.parse import quote
+
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
@@ -36,6 +38,14 @@ class PerfilProfesional(models.Model):
         help_text="Número con código de país y sin espacios ni signos, por ejemplo 5493871234567. "
         "Si queda vacío, no se muestra el botón de WhatsApp.",
     )
+    whatsapp_mensaje = models.CharField(
+        "mensaje de WhatsApp",
+        max_length=300,
+        blank=True,
+        default="Hola Damián, te escribo desde tu sitio Datos en Criollo. Quería consultarte por ",
+        help_text="Texto que aparece escrito al abrir el chat; la persona puede cambiarlo antes de enviar. "
+        "Si queda vacío, el chat se abre sin mensaje.",
+    )
 
     class Meta:
         verbose_name = "perfil profesional"
@@ -64,7 +74,12 @@ class PerfilProfesional(models.Model):
     @property
     def whatsapp_url(self):
         numero = "".join(c for c in self.whatsapp if c.isdigit())
-        return f"https://wa.me/{numero}" if numero else ""
+        if not numero:
+            return ""
+        url = f"https://wa.me/{numero}"
+        if self.whatsapp_mensaje.strip():
+            url += "?text=" + quote(self.whatsapp_mensaje)
+        return url
 
 
 class Servicio(models.Model):
