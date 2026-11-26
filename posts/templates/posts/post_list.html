@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}{% if categoria_actual %}{{ categoria_actual.nombre }} · {% elif termino %}Buscar: {{ termino }} · {% endif %}Datos en Criollo{% endblock %}
+{% block title %}{% if categoria_actual %}{{ categoria_actual.nombre }} · {% elif termino %}Buscar: {{ termino }} · {% endif %}Blog · Datos en Criollo{% endblock %}
 
 {% block header %}
 <header class="masthead" style="background-image: url('{% static 'img/home-bg.jpg' %}')">
@@ -13,7 +13,7 @@
                         <h1>{{ categoria_actual.nombre }}</h1>
                         <span class="subheading">{{ categoria_actual.descripcion|default:"Publicaciones de esta categoría" }}</span>
                     {% else %}
-                        <h1>Datos en Criollo</h1>
+                        <h1>Blog</h1>
                         <span class="subheading">Datos y análisis explicados de manera simple, para PyMEs y emprendedores</span>
                     {% endif %}
                 </div>

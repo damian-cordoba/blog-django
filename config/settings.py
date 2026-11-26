@@ -35,6 +35,9 @@ INSTALLED_APPS = [
     # Apps del proyecto
     "posts",
     "usuarios",
+    "sitio",
+    "portafolio",
+    "herramientas",
 ]
 
 MIDDLEWARE = [
@@ -60,6 +63,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "posts.context_processors.categorias",
+                "sitio.context_processors.perfil",
             ],
         },
     },
@@ -114,6 +118,23 @@ MEDIA_ROOT = BASE_DIR / "media"  # imágenes subidas por los usuarios
 LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "lista_posts"
 LOGOUT_REDIRECT_URL = "lista_posts"
+
+
+# --- Correo -------------------------------------------------------------------
+# Sin configuración, los correos se muestran en la terminal (útil en desarrollo).
+# Para enviarlos de verdad, definí EMAIL_HOST y las demás variables en el .env.
+
+EMAIL_HOST = config("EMAIL_HOST", default="")
+EMAIL_BACKEND = (
+    "django.core.mail.backends.smtp.EmailBackend"
+    if EMAIL_HOST
+    else "django.core.mail.backends.console.EmailBackend"
+)
+EMAIL_PORT = config("EMAIL_PORT", default=587, cast=int)
+EMAIL_HOST_USER = config("EMAIL_HOST_USER", default="")
+EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", default="")
+EMAIL_USE_TLS = config("EMAIL_USE_TLS", default=True, cast=bool)
+DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL", default="Datos en Criollo <no-responder@localhost>")
 
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

@@ -1,0 +1,11 @@
+<section class="llamado">
+    <div class="container px-4 px-lg-5 text-center">
+        <h2>¿Tenés información desordenada que no te deja decidir?</h2>
+        <p>Contame cómo trabajás hoy y te propongo una solución a medida, sin compromiso.</p>
+        <div class="hero-botones justify-content-center">
+            <a class="btn btn-acento" href="{% url 'contacto' %}">Escribime</a>
+            {% if perfil.whatsapp_url %}<a class="btn btn-contorno-claro" href="{{ perfil.whatsapp_url }}" target="_blank" rel="noopener">WhatsApp</a>{% endif %}
+            {% if perfil.linkedin %}<a class="btn btn-contorno-claro" href="{{ perfil.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>{% endif %}
+        </div>
+    </div>
+</section>

@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Datos en Criollo · {{ perfil.nombre }}{% endblock %}
+
+{% block header %}
+<header class="masthead masthead-inicio" style="background-image: url('{% static 'img/home-bg.jpg' %}')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-lg-10 col-xl-9">
+                <div class="site-heading">
+                    <p class="hero-antetitulo">{{ perfil.nombre }} · {{ perfil.titular }}</p>
+                    <h1 class="hero-titulo">Datos y análisis explicados de manera simple</h1>
+                    <span class="subheading">Sistemas en Excel, tableros en Power BI y automatización para que tu PyME decida con información clara.</span>
+                    <div class="hero-botones">
+                        <a class="btn btn-acento" href="{% url 'diagnostico' %}">Hacé el diagnóstico gratis</a>
+                        <a class="btn btn-contorno-claro" href="{% url 'servicios' %}">Ver servicios</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+{% endblock %}
+
+{% block content %}
+<main>
+    {% if servicios %}
+    <section class="seccion">
+        <div class="container px-4 px-lg-5">
+            <div class="seccion-encabezado">
+                <h2>Qué puedo hacer por tu negocio</h2>
+                <p>Empiezo relevando cómo trabajás, modelo los datos, construyo la herramienta y te acompaño con manuales y soporte.</p>
+            </div>
+            <div class="grilla grilla-4">
+                {% for servicio in servicios %}
+                    <a class="tarjeta tarjeta-servicio" href="{{ servicio.get_absolute_url }}">
+                        <span class="tarjeta-icono" aria-hidden="true">{{ servicio.icono }}</span>
+                        <h3 class="tarjeta-titulo">{{ servicio.nombre }}</h3>
+                        <p class="tarjeta-texto">{{ servicio.resumen }}</p>
+                    </a>
+                {% endfor %}
+            </div>
+            <p class="text-center mt-4"><a class="btn btn-primary text-uppercase" href="{% url 'servicios' %}">Todos los servicios</a></p>
+        </div>
+    </section>
+    {% endif %}
+
+    {% if proyectos %}
+    <section class="seccion seccion-gris">
+        <div class="container px-4 px-lg-5">
+            <div class="seccion-encabezado">
+                <h2>Casos de estudio</h2>
+                <p>Proyectos reales y de formación: el problema, lo que construí y el resultado.</p>
+            </div>
+            <div class="grilla grilla-3">
+                {% for proyecto in proyectos %}
+                    {% include "_tarjeta_proyecto.html" %}
+                {% endfor %}
+            </div>
+            <p class="text-center mt-4"><a class="btn btn-primary text-uppercase" href="{% url 'lista_proyectos' %}">Ver todos los casos</a></p>
+        </div>
+    </section>
+    {% endif %}
+
+    <section class="seccion">
+        <div class="container px-4 px-lg-5">
+            <div class="seccion-encabezado">
+                <h2>Herramientas gratuitas</h2>
+                <p>Calculadoras y un diagnóstico para tomar mejores decisiones hoy mismo, sin registrarte.</p>
+            </div>
+            <div class="grilla grilla-4">
+                <a class="tarjeta tarjeta-servicio" href="{% url 'diagnostico' %}">
+                    <span class="tarjeta-icono" aria-hidden="true">🩺</span>
+                    <h3 class="tarjeta-titulo">Diagnóstico de datos</h3>
+                    <p class="tarjeta-texto">10 preguntas para saber qué tan bien usa los datos tu negocio.</p>
+                </a>
+                <a class="tarjeta tarjeta-servicio" href="{% url 'punto_equilibrio' %}">
+                    <span class="tarjeta-icono" aria-hidden="true">⚖️</span>
+                    <h3 class="tarjeta-titulo">Punto de equilibrio</h3>
+                    <p class="tarjeta-texto">Cuánto tenés que vender para cubrir tus costos fijos.</p>
+                </a>
+                <a class="tarjeta tarjeta-servicio" href="{% url 'precio_margen' %}">
+                    <span class="tarjeta-icono" aria-hidden="true">🏷️</span>
+                    <h3 class="tarjeta-titulo">Precio y margen</h3>
+                    <p class="tarjeta-texto">El precio justo para el margen que buscás, con y sin IVA.</p>
+                </a>
+                <a class="tarjeta tarjeta-servicio" href="{% url 'descuento' %}">
+                    <span class="tarjeta-icono" aria-hidden="true">📉</span>
+                    <h3 class="tarjeta-titulo">¿Conviene ese descuento?</h3>
+                    <p class="tarjeta-texto">Cuánto más tenés que vender para ganar lo mismo.</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    {% if posts %}
+    <section class="seccion seccion-gris">
+        <div class="container px-4 px-lg-5">
+            <div class="seccion-encabezado">
+                <h2>Del blog</h2>
+                <p>Artículos cortos para entender tus números sin vueltas.</p>
+            </div>
+            <div class="grilla grilla-3">
+                {% for post in posts %}
+                    <article class="tarjeta">
+                        <div class="tarjeta-cuerpo">
+                            {% if post.categoria %}<p class="tarjeta-etiqueta">{{ post.categoria.nombre }}</p>{% endif %}
+                            <h3 class="tarjeta-titulo"><a href="{{ post.get_absolute_url }}">{{ post.titulo }}</a></h3>
+                            <p class="tarjeta-texto">{{ post.subtitulo|default:post.contenido|truncatewords:20 }}</p>
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+            <p class="text-center mt-4"><a class="btn btn-primary text-uppercase" href="{% url 'lista_posts' %}">Ir al blog</a></p>
+        </div>
+    </section>
+    {% endif %}
+
+    {% include "sitio/_llamado_contacto.html" %}
+</main>
+{% endblock %}

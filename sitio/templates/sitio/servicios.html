@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load formato %}
+
+{% block title %}Servicios · Datos en Criollo{% endblock %}
+
+{% block header %}
+    {% include "_header_chico.html" with titulo="Servicios" subtitulo="Soluciones a medida para ordenar, analizar y automatizar tus datos" %}
+{% endblock %}
+
+{% block content %}
+<main>
+    <section class="seccion pt-0">
+        <div class="container px-4 px-lg-5">
+            <div class="seccion-encabezado">
+                <h2>Cómo trabajo</h2>
+            </div>
+            <ol class="pasos">
+                <li><strong>Relevamiento.</strong> Conozco cómo trabajás hoy y qué decisiones necesitás tomar.</li>
+                <li><strong>Modelado de datos.</strong> Ordeno la información en una estructura confiable.</li>
+                <li><strong>Construcción.</strong> Desarrollo la herramienta: sistema, tablero o automatización.</li>
+                <li><strong>Acompañamiento.</strong> Entrego manual de usuario y te doy soporte.</li>
+            </ol>
+        </div>
+    </section>
+
+    <section class="seccion seccion-gris">
+        <div class="container px-4 px-lg-5">
+            <div class="lista-servicios">
+                {% for servicio in servicios %}
+                    <article class="servicio" id="{{ servicio.slug }}">
+                        <div class="servicio-icono" aria-hidden="true">{{ servicio.icono }}</div>
+                        <div class="servicio-cuerpo">
+                            <h2 class="h4">{{ servicio.nombre }}</h2>
+                            <p class="servicio-resumen">{{ servicio.resumen }}</p>
+                            {{ servicio.descripcion|texto_enriquecido }}
+                            {% if servicio.lista_incluye %}
+                                <p class="mb-1"><strong>Incluye:</strong></p>
+                                <ul>{% for item in servicio.lista_incluye %}<li>{{ item }}</li>{% endfor %}</ul>
+                            {% endif %}
+                            <div class="servicio-pie">
+                                <div class="chips-chicos">
+                                    {% for h in servicio.lista_herramientas %}<span>{{ h }}</span>{% endfor %}
+                                    <span class="chip-modalidad">{{ servicio.get_modalidad_display }}</span>
+                                </div>
+                                <a class="btn btn-primary btn-sm" href="{% url 'contacto' %}?servicio={{ servicio.slug }}">Consultar</a>
+                            </div>
+                        </div>
+                    </article>
+                {% empty %}
+                    <p class="text-center text-muted">Todavía no hay servicios cargados.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    {% include "sitio/_llamado_contacto.html" %}
+</main>
+{% endblock %}

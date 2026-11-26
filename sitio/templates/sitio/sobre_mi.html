@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load formato %}
+
+{% block title %}Sobre mí · Datos en Criollo{% endblock %}
+
+{% block header %}
+    {% include "_header_chico.html" with titulo="Sobre mí" subtitulo=perfil.titular fondo="img/post-bg.jpg" %}
+{% endblock %}
+
+{% block content %}
+<main class="mb-5">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-5 justify-content-center">
+            <aside class="col-lg-4 mb-4">
+                <div class="ficha-perfil">
+                    {% if perfil.foto %}
+                        <img class="foto-perfil" src="{{ perfil.foto.url }}" alt="Foto de {{ perfil.nombre }}">
+                    {% else %}
+                        <div class="foto-perfil foto-iniciales" aria-hidden="true">{{ perfil.nombre|slice:":1" }}</div>
+                    {% endif %}
+                    <h2 class="h4 mt-3 mb-1">{{ perfil.nombre }}</h2>
+                    <p class="text-muted">{{ perfil.titular }}</p>
+                    <ul class="lista-datos">
+                        {% if perfil.ubicacion %}<li>📍 {{ perfil.ubicacion }}</li>{% endif %}
+                        {% if perfil.disponibilidad %}<li>💻 {{ perfil.disponibilidad }}</li>{% endif %}
+                        {% if perfil.idiomas %}<li>🗣️ {{ perfil.idiomas }}</li>{% endif %}
+                    </ul>
+                    <div class="d-grid gap-2">
+                        <a class="btn btn-primary" href="{% url 'contacto' %}">Contactame</a>
+                        {% if perfil.linkedin %}<a class="btn btn-outline-primary" href="{{ perfil.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>{% endif %}
+                        {% if perfil.github %}<a class="btn btn-outline-primary" href="{{ perfil.github }}" target="_blank" rel="noopener">GitHub</a>{% endif %}
+                        {% if perfil.portafolio_notion %}<a class="btn btn-outline-secondary" href="{{ perfil.portafolio_notion }}" target="_blank" rel="noopener">Portafolio en Notion</a>{% endif %}
+                    </div>
+                </div>
+            </aside>
+
+            <div class="col-lg-7">
+                <div class="texto-largo">
+                    {% if perfil.bio %}{{ perfil.bio|texto_enriquecido }}{% else %}<p>Pronto vas a encontrar acá mi historia profesional.</p>{% endif %}
+                </div>
+
+                {% if perfil.lista_habilidades %}
+                    <h2 class="h5 text-uppercase mt-5 mb-3">Habilidades</h2>
+                    <div class="chips-chicos chips-grandes">
+                        {% for habilidad in perfil.lista_habilidades %}<span>{{ habilidad }}</span>{% endfor %}
+                    </div>
+                {% endif %}
+
+                {% if perfil.lista_formacion %}
+                    <h2 class="h5 text-uppercase mt-5 mb-3">Formación</h2>
+                    <ul class="lista-formacion">
+                        {% for item in perfil.lista_formacion %}<li>{{ item }}</li>{% endfor %}
+                    </ul>
+                {% endif %}
+
+                <p class="mt-5"><a href="{% url 'lista_proyectos' %}">Ver mis casos de estudio &rarr;</a></p>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

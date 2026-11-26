@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Contacto · Datos en Criollo{% endblock %}
+
+{% block header %}
+    {% include "_header_chico.html" with titulo="Contacto" subtitulo="Contame qué necesitás y te respondo a la brevedad" %}
+{% endblock %}
+
+{% block content %}
+<main class="mb-5">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-5 justify-content-center">
+            <div class="col-lg-7">
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    <input type="hidden" name="origen" value="{{ origen }}">
+                    {% include "_form_campos.html" %}
+                    <button type="submit" class="btn btn-primary text-uppercase mt-2">Enviar consulta</button>
+                    <p class="small text-muted mt-3">Uso tus datos solo para responderte. No los comparto con nadie.</p>
+                </form>
+            </div>
+            <aside class="col-lg-4 mt-5 mt-lg-0">
+                <div class="ficha-perfil text-start">
+                    <h2 class="h5">Otras formas de contacto</h2>
+                    <ul class="lista-datos">
+                        {% if perfil.email %}<li>✉️ <a href="mailto:{{ perfil.email }}">{{ perfil.email }}</a></li>{% endif %}
+                        {% if perfil.whatsapp_url %}<li>💬 <a href="{{ perfil.whatsapp_url }}" target="_blank" rel="noopener">WhatsApp</a></li>{% endif %}
+                        {% if perfil.linkedin %}<li>💼 <a href="{{ perfil.linkedin }}" target="_blank" rel="noopener">LinkedIn</a></li>{% endif %}
+                        {% if perfil.ubicacion %}<li>📍 {{ perfil.ubicacion }}</li>{% endif %}
+                    </ul>
+                    <p class="small text-muted mb-0">¿Todavía no sabés qué necesitás? Probá el <a href="{% url 'diagnostico' %}">diagnóstico de datos</a>: en 3 minutos te da un punto de partida.</p>
+                </div>
+            </aside>
+        </div>
+    </div>
+</main>
+{% endblock %}
