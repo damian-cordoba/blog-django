@@ -1,0 +1,47 @@
+{% extends "herramientas/_base_calculadora.html" %}
+{% load formato %}
+
+{% block title %}Calculadora de precio y margen · Datos en Criollo{% endblock %}
+{% block descripcion %}Calculá el precio de venta según el margen que buscás, o tu margen real a partir del precio. Margen vs. markup explicado.{% endblock %}
+
+{% block resultado %}
+    <p class="resultado-etiqueta">Precio de venta sin IVA</p>
+    <p class="resultado-numero">{{ resultado.precio|moneda }}</p>
+    {% if resultado.precio_con_iva %}<p class="resultado-sub">Con IVA: <strong>{{ resultado.precio_con_iva|moneda }}</strong></p>{% endif %}
+    <div class="resultado-grilla">
+        <div><span>Ganancia por unidad</span><strong>{{ resultado.ganancia|moneda }}</strong></div>
+        <div><span>Margen (sobre el precio)</span><strong>{{ resultado.margen|porcentaje }}</strong></div>
+        <div><span>Markup (sobre el costo)</span><strong>{{ resultado.markup|porcentaje }}</strong></div>
+        <div><span>Costo</span><strong>{{ resultado.costo|moneda }}</strong></div>
+    </div>
+{% endblock %}
+
+{% block explicacion %}
+    <h2 class="h5">Margen y markup no son lo mismo</h2>
+    <p>El <strong>margen</strong> es la ganancia sobre el precio de venta. El <strong>markup</strong> es la ganancia sobre el costo.</p>
+    <p>Si un producto cuesta $ 100 y le sumás un 30 % (markup), lo vendés a $ 130, pero tu margen es 23 %, no 30 %. Confundirlos es uno de los errores más comunes al fijar precios.</p>
+{% endblock %}
+
+{% block explicacion_resultado %}
+    <h2 class="h5">Cómo se calcula</h2>
+    <p><strong>Precio = costo ÷ (1 − margen)</strong>. Margen = ganancia ÷ precio. Markup = ganancia ÷ costo.</p>
+    <p>En este caso, para ganar un margen de {{ resultado.margen|porcentaje }} tenés que aplicar un markup de {{ resultado.markup|porcentaje }} sobre el costo.</p>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Muestra solo el campo que corresponde al modo elegido.
+    (function () {
+        const radios = document.querySelectorAll('input[name="modo"]');
+        const margen = document.getElementById('id_margen').closest('.mb-3');
+        const precio = document.getElementById('id_precio').closest('.mb-3');
+        function actualizar() {
+            const modo = document.querySelector('input[name="modo"]:checked')?.value || 'margen';
+            margen.hidden = modo !== 'margen';
+            precio.hidden = modo !== 'precio';
+        }
+        radios.forEach(r => r.addEventListener('change', actualizar));
+        actualizar();
+    })();
+</script>
+{% endblock %}

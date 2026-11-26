@@ -1,0 +1,30 @@
+{% extends "herramientas/_base_calculadora.html" %}
+{% load formato %}
+
+{% block title %}Calculadora de punto de equilibrio · Datos en Criollo{% endblock %}
+{% block descripcion %}Calculá cuántas unidades tenés que vender por mes para cubrir tus costos fijos. Gratis y sin registrarte.{% endblock %}
+
+{% block resultado %}
+    <p class="resultado-etiqueta">Para no perder plata tenés que vender por mes</p>
+    <p class="resultado-numero">{{ resultado.unidades|numero_ar }} unidades</p>
+    <p class="resultado-sub">equivalente a <strong>{{ resultado.facturacion|moneda }}</strong> de facturación sin IVA.</p>
+    <div class="resultado-grilla">
+        <div><span>Ganancia por unidad</span><strong>{{ resultado.margen_unitario|moneda }}</strong></div>
+        <div><span>Margen de contribución</span><strong>{{ resultado.margen_porcentaje|porcentaje }}</strong></div>
+        {% if resultado.unidades_objetivo %}
+            <div><span>Para tu ganancia deseada</span><strong>{{ resultado.unidades_objetivo|numero_ar }} u.</strong></div>
+            <div><span>Facturación necesaria</span><strong>{{ resultado.facturacion_objetivo|moneda }}</strong></div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block explicacion %}
+    <h2 class="h5">¿Qué es el punto de equilibrio?</h2>
+    <p>Es la cantidad de ventas en la que no ganás ni perdés: lo que te queda de cada venta (precio menos costo variable) alcanza justo para pagar los costos fijos del mes.</p>
+    <p>Saberlo te ayuda a fijar metas de venta realistas y a evaluar si te conviene subir precios, bajar costos o sumar volumen.</p>
+{% endblock %}
+
+{% block explicacion_resultado %}
+    <h2 class="h5">Cómo se calcula</h2>
+    <p><strong>Unidades = costos fijos ÷ (precio − costo variable)</strong>, redondeado hacia arriba. Cada unidad vendida aporta {{ resultado.margen_unitario|moneda }} para cubrir los costos fijos; recién después de las primeras {{ resultado.unidades|numero_ar }} unidades empezás a ganar.</p>
+{% endblock %}

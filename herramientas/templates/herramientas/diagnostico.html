@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}Diagnóstico de datos para PyMEs · Datos en Criollo{% endblock %}
+{% block descripcion %}10 preguntas para saber qué tan bien usa los datos tu negocio, con recomendaciones concretas. Gratis.{% endblock %}
+
+{% block header %}
+    {% include "_header_chico.html" with titulo="Diagnóstico de datos" subtitulo="10 preguntas · 3 minutos · resultado al instante" fondo="img/home-bg.jpg" %}
+{% endblock %}
+
+{% block content %}
+<main class="mb-5">
+    <div class="container px-4 px-lg-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <p class="miga"><a href="{% url 'herramientas' %}">&larr; Todas las herramientas</a></p>
+
+                {% if resultado %}
+                    <section class="resultado-calculadora resultado-diagnostico" aria-live="polite">
+                        <p class="resultado-etiqueta">Nivel de madurez de datos</p>
+                        <p class="resultado-numero">{{ resultado.nivel }}</p>
+                        <div class="barra" role="img" aria-label="{{ resultado.porcentaje }} por ciento">
+                            <div class="barra-relleno" style="width: {{ resultado.porcentaje }}%"></div>
+                        </div>
+                        <p class="resultado-sub">{{ resultado.puntaje }} de {{ resultado.maximo }} puntos</p>
+                        <p>{{ resultado.descripcion }}</p>
+
+                        <h2 class="h6 text-uppercase mt-4">Por área</h2>
+                        {% for area in resultado.areas %}
+                            <div class="barra-area">
+                                <span>{{ area.nombre }}</span>
+                                <div class="barra barra-fina"><div class="barra-relleno" style="width: {{ area.porcentaje }}%"></div></div>
+                                <strong>{{ area.porcentaje }} %</strong>
+                            </div>
+                        {% endfor %}
+
+                        {% if resultado.recomendaciones %}
+                            <h2 class="h6 text-uppercase mt-4">Por dónde empezar</h2>
+                            <ul class="recomendaciones">
+                                {% for rec in resultado.recomendaciones %}<li>{{ rec }}</li>{% endfor %}
+                            </ul>
+                        {% endif %}
+                    </section>
+                    <div class="llamado-chico">
+                        <p class="mb-2"><strong>¿Querés un plan concreto para tu negocio?</strong> Te propongo los primeros pasos sin compromiso, a partir de este resultado.</p>
+                        <a class="btn btn-acento btn-sm" href="{{ contacto_url }}">Quiero mi plan</a>
+                        <a class="btn btn-link btn-sm" href="{% url 'diagnostico' %}">Volver a hacerlo</a>
+                    </div>
+                {% else %}
+                    <p class="lead">Respondé pensando en cómo funciona hoy tu negocio, no en cómo te gustaría que funcione. No te pido datos personales.</p>
+                    <form method="post" novalidate class="form-diagnostico">
+                        {% csrf_token %}
+                        {% if form.errors %}<div class="alert alert-danger">Te faltó responder algunas preguntas.</div>{% endif %}
+                        {% for campo in form %}
+                            <fieldset class="pregunta{% if campo.errors %} con-error{% endif %}">
+                                <legend>{{ campo.label }}</legend>
+                                {% for opcion in campo %}
+                                    <label class="opcion">{{ opcion.tag }} <span>{{ opcion.choice_label }}</span></label>
+                                {% endfor %}
+                                {% for error in campo.errors %}<div class="invalid-feedback d-block">{{ error }}</div>{% endfor %}
+                            </fieldset>
+                        {% endfor %}
+                        <button type="submit" class="btn btn-primary text-uppercase">Ver mi resultado</button>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

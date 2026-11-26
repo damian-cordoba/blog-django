@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Herramientas gratuitas para PyMEs · Datos en Criollo{% endblock %}
+{% block descripcion %}Calculadoras de punto de equilibrio, precio y margen, descuentos y un diagnóstico de datos gratuito para PyMEs.{% endblock %}
+
+{% block header %}
+    {% include "_header_chico.html" with titulo="Herramientas gratuitas" subtitulo="Para decidir con números, sin registrarte" fondo="img/home-bg.jpg" %}
+{% endblock %}
+
+{% block content %}
+<main class="mb-5">
+    <div class="container px-4 px-lg-5">
+        <div class="grilla grilla-2">
+            {% for h in herramientas %}
+                <a class="tarjeta tarjeta-servicio tarjeta-herramienta" href="{% url h.url %}">
+                    <span class="tarjeta-icono" aria-hidden="true">{{ h.icono }}</span>
+                    <h2 class="tarjeta-titulo">{{ h.titulo }}</h2>
+                    <p class="tarjeta-texto">{{ h.descripcion }}</p>
+                    <span class="tarjeta-enlace">Usar ahora &rarr;</span>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+</main>
+{% endblock %}

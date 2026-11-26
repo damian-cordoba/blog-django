@@ -1,0 +1,26 @@
+{% extends "herramientas/_base_calculadora.html" %}
+{% load formato %}
+
+{% block title %}¿Conviene ese descuento? · Datos en Criollo{% endblock %}
+{% block descripcion %}Calculá cuánto más tenés que vender para ganar lo mismo después de una promoción o descuento.{% endblock %}
+
+{% block resultado %}
+    <p class="resultado-etiqueta">Para ganar lo mismo que sin descuento, tenés que vender</p>
+    <p class="resultado-numero">{{ resultado.aumento_ventas_necesario|porcentaje }} más</p>
+    <p class="resultado-sub">unidades que antes de la promoción.</p>
+    <div class="resultado-grilla">
+        <div><span>Margen actual</span><strong>{{ resultado.margen_actual|porcentaje }}</strong></div>
+        <div><span>Margen con descuento</span><strong>{{ resultado.margen_con_descuento|porcentaje }}</strong></div>
+    </div>
+{% endblock %}
+
+{% block explicacion %}
+    <h2 class="h5">Un descuento chico puede costar caro</h2>
+    <p>El descuento sale entero de tu ganancia, no del precio. Si ganás un 30 % y hacés un 15 % de descuento, tu ganancia por unidad se reduce a la mitad: necesitás vender el doble para quedar igual.</p>
+    <p>Usá esta calculadora antes de lanzar una promoción para saber si el aumento de ventas esperado la justifica.</p>
+{% endblock %}
+
+{% block explicacion_resultado %}
+    <h2 class="h5">Cómo se calcula</h2>
+    <p><strong>Aumento necesario = descuento ÷ (margen − descuento)</strong>, con margen y descuento expresados sobre el precio original.</p>
+{% endblock %}

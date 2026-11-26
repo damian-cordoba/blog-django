@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block header %}
+    {% include "_header_chico.html" with titulo=titulo_pagina subtitulo=subtitulo_pagina fondo="img/home-bg.jpg" %}
+{% endblock %}
+
+{% block content %}
+<main class="mb-5">
+    <div class="container px-4 px-lg-5">
+        <p class="miga"><a href="{% url 'herramientas' %}">&larr; Todas las herramientas</a></p>
+        <div class="row gx-5">
+            <div class="col-lg-5 mb-4">
+                <form method="get" class="calculadora-form" novalidate>
+                    {% include "_form_campos.html" %}
+                    <button type="submit" class="btn btn-primary text-uppercase">Calcular</button>
+                </form>
+            </div>
+            <div class="col-lg-7">
+                {% if resultado %}
+                    <section class="resultado-calculadora" aria-live="polite">
+                        {% block resultado %}{% endblock %}
+                    </section>
+                    <div class="llamado-chico">
+                        <p class="mb-2"><strong>¿Querés ir más allá de una estimación?</strong> Puedo armarte un tablero con estos indicadores calculados automáticamente con tus datos reales.</p>
+                        <a class="btn btn-acento btn-sm" href="{{ contacto_url }}">Quiero analizar mi negocio</a>
+                    </div>
+                {% else %}
+                    <section class="explicacion">
+                        {% block explicacion %}{% endblock %}
+                    </section>
+                {% endif %}
+            </div>
+        </div>
+        {% if resultado %}
+            <section class="explicacion mt-4">{% block explicacion_resultado %}{% endblock %}</section>
+        {% endif %}
+        <p class="small text-muted mt-4">Los resultados son estimaciones orientativas y no reemplazan el asesoramiento de tu contador.</p>
+    </div>
+</main>
+{% endblock %}
