@@ -390,3 +390,41 @@ header.masthead.masthead-inicio .site-heading { padding: 3rem 0 4rem; }
 }
 .tema-pastel .cabecera-pastel + .container .miga, .tema-pastel main .miga { margin-top: 0; }
 .tema-pastel .grilla-2 { max-width: 900px; margin: 0 auto; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+
+
+/* =====================================================================
+   Tema «Pizarra» para todo el sitio: grises, blanco y acento arena.
+   Pisa los colores de la plantilla Clean Blog (por eso usa !important).
+   ===================================================================== */
+:root { --dc-acento:#d6c29b; --dc-primario:#3f4a5c; --dc-oscuro:#2f3642; }
+body { color:#262b33; }
+a { color:#3f4a5c; } a:hover { color:#262b33; }
+header.masthead:before { opacity:.18 !important; }
+.hero-antetitulo, .cabecera-antetitulo { color:#cdd6e3 !important; }
+.marca-acento { color:#d6c29b !important; }
+.btn-primary { background:#3f4a5c !important; border-color:#3f4a5c !important; color:#fff !important; }
+.btn-outline-primary { border-color:#3f4a5c !important; color:#3f4a5c !important; }
+.btn-acento { background:#d6c29b !important; border-color:#d6c29b !important; color:#262b33 !important; }
+.btn-contorno-claro { border-color:#cdd6e3 !important; }
+@media (min-width:992px){ #mainNav .nav-destacado { border-color:#cdd6e3 !important; } }
+.seccion-gris { background-color:#eceef1 !important; background-image: radial-gradient(#cdd2da 1.1px, transparent 1.3px) !important; background-size: 20px 20px !important; }
+.seccion-encabezado h2::after { content:''; display:block; width:56px; height:3px; border-radius:2px; background:#d6c29b; margin:.8rem auto 0; }
+.cabecera-pastel { background: #3b4351 url('../img/form-bg.jpg') center/cover !important; }
+.tarjeta, .ficha-perfil, .servicio, .pasos li { border-color:#d5d9df !important; }
+.tarjeta-etiqueta { color:#5c6370 !important; }
+.tarjeta-icono { display:inline-flex; align-items:center; justify-content:center; width:3.1rem; height:3.1rem; border-radius:.8rem; background:#e4e8ee; font-size:1.5rem; }
+.grilla > :nth-child(4n+2) .tarjeta-icono { background:#dfe7e1; }
+.grilla > :nth-child(4n+3) .tarjeta-icono { background:#e5e0ea; }
+.grilla > :nth-child(4n+4) .tarjeta-icono { background:#ebe3da; }
+.chips-chicos span, .chips-chicos a { background:#e4e8ee !important; color:#3b4a5e !important; }
+.chip-modalidad { background:#ebe3da !important; color:#664c38 !important; }
+.chip { border-color:#d5d9df !important; color:#4b5260 !important; }
+.chip:hover, .chip.activa { background:#3f4a5c !important; border-color:#3f4a5c !important; color:#fff !important; }
+.etiqueta-categoria { background:#e4e8ee !important; color:#3b4a5e !important; }
+.etiqueta-clara { background:#d6c29b !important; color:#262b33 !important; }
+.tipo-cliente { background-color:#3b4351 !important; } .tipo-formacion { background-color:#4d5a57 !important; } .tipo-personal { background-color:#57505f !important; }
+.llamado { background: linear-gradient(rgba(47,54,66,.8),rgba(47,54,66,.8)), url('../img/home-bg.jpg') center/cover !important; }
+.bloque-resultados { background:#e3ebe5 !important; border-color:#cbd9cf !important; }
+.pasos li::before { background:#3f4a5c !important; }
+.foto-iniciales { background:#3f4a5c !important; color:#d6c29b !important; }
+.pie { background:#eceef1 !important; }

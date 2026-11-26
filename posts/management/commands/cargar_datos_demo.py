@@ -152,19 +152,19 @@ POSTS = [
     },
 ]
 
-COLORES = {
-    "gestion-y-kpis": ((10, 37, 64), (240, 180, 41)),
-    "power-bi": ((40, 35, 20), (242, 200, 17)),
-    "excel": ((16, 80, 50), (120, 220, 150)),
-    "estadistica": ((60, 30, 90), (255, 160, 200)),
-    "sql": ((20, 50, 90), (130, 190, 255)),
-    "python": ((30, 60, 100), (255, 212, 59)),
+COLORES = {  # paleta «Pizarra»: fondo gris pizarra y acento pastel apagado
+    "gestion-y-kpis": ((59, 67, 81), (214, 194, 155)),
+    "power-bi": ((63, 70, 84), (214, 194, 155)),
+    "excel": ((60, 72, 70), (190, 214, 198)),
+    "estadistica": ((70, 66, 82), (205, 192, 222)),
+    "sql": ((56, 66, 82), (180, 198, 222)),
+    "python": ((58, 64, 78), (214, 194, 155)),
 }
 
 
 def generar_portada(slug_categoria, semilla):
     """Dibuja una portada simple tipo gráfico (sin texto) y la devuelve en bytes JPG."""
-    fondo, acento = COLORES.get(slug_categoria, ((10, 37, 64), (240, 180, 41)))
+    fondo, acento = COLORES.get(slug_categoria, ((59, 67, 81), (214, 194, 155)))
     ancho, alto = 1200, 630
     img = Image.new("RGB", (ancho, alto), fondo)
     dibujo = ImageDraw.Draw(img)
