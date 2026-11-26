@@ -47,7 +47,7 @@ class Herramienta(models.Model):
 
 class Proyecto(models.Model):
     TIPOS = [
-        ("cliente", "Cliente real"),
+        ("cliente", "Cliente"),
         ("formacion", "Proyecto de formación"),
         ("personal", "Proyecto personal"),
     ]

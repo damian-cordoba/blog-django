@@ -52,7 +52,7 @@ Nació como blog y trabajo final de la materia Python de la Diplomatura en Cienc
 - Botón flotante de WhatsApp, que solo aparece si se carga un número en el perfil. Abre el chat con un mensaje inicial editable desde el admin.
 
 **Casos de estudio**
-- Listado con filtros por tipo de proyecto (cliente real, formación, personal) y por herramienta.
+- Listado con filtros por tipo de proyecto (cliente, formación, personal) y por herramienta.
 - Detalle con problema, solución, resultados y detalle técnico, portada, galería de capturas y enlaces al repositorio.
 - Tableros embebidos de Power BI, Looker Studio, Tableau Public o YouTube. Solo se aceptan enlaces `https` de esos sitios.
 
